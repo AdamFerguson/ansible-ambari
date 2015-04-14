@@ -13,3 +13,17 @@
 
 - name : wait for agent to register
   command : sleep 10
+
+- name: Create /tmp/hostname.sh
+  template: src=hostname.sh.j2 dest=/tmp/hostname.sh owner=bin group=wheel mode=0644
+  when: manual_registration
+
+- name: Set hostname_script in ambari-agent.ini
+  lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini insertafter="^\[agent\]" line="hostname_script=/tmp/hostname.sh"
+  when: manual_registration
+
+- name: Establish host names for all machines in cluster in /etc/hosts
+  lineinfile: dest=/etc/hosts line="{{hostvars[item].ansible_eth0.ipv4.address}} {{hostvars[item].ansible_hostname}} "
+  with_items: groups['all']
+  when: manual_registration
+

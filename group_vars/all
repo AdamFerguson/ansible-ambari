@@ -2,6 +2,10 @@
 
 java_home: /etc/alternatives/java_sdk
 
+# When using custom host names, so the servers are resilient to changing ip addresses
+# https://ambari.apache.org/1.2.3/installing-hadoop-using-ambari/content/ambari-chap7a.html
+manual_registration: no
+
 # paramaters passed to the various ambari roles
 ambari:
 
