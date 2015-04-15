@@ -12,27 +12,35 @@
 
 - name: Apply common configuration to all target nodes
   hosts: all
-  accelerate: True
+  tags: [common]
+  #accelerate: True
   sudo: yes
   roles:
     - common
     - ambari-repo
+  tasks:
+    - name: update hostname
+      command: hostname "{{hostname}}"
+
+- name: Ambari agent
+  tags: [ambari, agent]
+  hosts: all
+  #accelerate: True
+  sudo: yes
+  roles:
+    - role: ambari-agent
+      manual_registration: yes
 
 - name: Ambari server
+  tags: [ambari, server]
   hosts: ambari
-  accelerate: True
+  #accelerate: True
   sudo: yes
   roles:
     - ambari-server
 
-- name: Ambari agent
-  hosts: all
-  accelerate: True
-  sudo: yes
-  roles:
-    - ambari-agent
-
 - name: run the blueprint
+  tags: [ambari, blueprint]
   hosts: ambari
   sudo: yes
   roles:

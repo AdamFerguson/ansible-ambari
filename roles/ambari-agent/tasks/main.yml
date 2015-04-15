@@ -23,7 +23,7 @@
   when: manual_registration
 
 - name: Establish host names for all machines in cluster in /etc/hosts
-  lineinfile: dest=/etc/hosts line="{{hostvars[item].ansible_eth0.ipv4.address}} {{hostvars[item].ansible_hostname}} "
+  lineinfile: dest=/etc/hosts line="{{hostvars[item].ansible_eth0.ipv4.address}} {{hostvars[item].hostname}} "
   with_items: groups['all']
   when: manual_registration
 

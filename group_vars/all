@@ -25,5 +25,5 @@ ambari:
 
 ####################
 # don't touch this unless you know what you're doing
-  ambari_server: "{{ hostvars[groups['ambari'][0]]['ansible_fqdn'] }}"
+  ambari_server: "{{ hostvars[groups['ambari'][0]]['hostname'] }}"
 #  ambari_server: "{{ hostvars[groups['ambari'][0]]['ansible_ssh_host'] }}"

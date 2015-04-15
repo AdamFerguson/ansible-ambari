@@ -3,7 +3,7 @@
     #yum: name=libselinux-python state=installed
 
   - name: install default packages
-    yum: name={{ item }} state=latest
+    yum: name={{ item }} state=present
     with_items:
       - libselinux-python
       - ntp
